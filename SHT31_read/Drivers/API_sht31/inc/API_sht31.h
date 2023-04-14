@@ -1,0 +1,110 @@
+/*
+ * API_sht31.h
+ *
+ *  Created on: Apr 13, 2023
+ *      Author: leomu
+ */
+
+#ifndef API_SHT31_SRC_API_SHT31_H_
+#define API_SHT31_SRC_API_SHT31_H_
+
+#define LOW_REPETABILITY_DURATION_MS 4
+#define MEDIUM_REPETABILITY_DURATION_MS 6
+#define HIGH_REPETABILITY_DURATION_MS 15
+#define POWER_UP_TIME 2
+
+#define DEFAULT_ADDR 0x44
+#define ADDR_HIGH 0x45
+
+//commands for single shot (SS) adquisition
+
+#define SS_CLOCK_STR_EN_HGH_REP 0x2C06
+#define SS_CLOCK_STR_EN_MED_REP 0x2C0D
+#define SS_CLOCK_STR_EN_LOW_REP 0x2C10
+
+#define SS_CLOCK_STR_DIS_HGH_REP 0x2400
+#define SS_CLOCK_STR_DIS_MED_REP 0x240B
+#define SS_CLOCK_STR_DIS_LOW_REP 0x2416
+
+//commands for periodic (PER) adquisition
+
+#define PER_HGH_REP_05_MPS 0x2032
+#define PER_MED_REP_05_MPS 0x2024
+#define PER_LOW_REP_05_MPS 0x202F
+
+#define PER_HGH_REP_1_MPS 0x2130
+#define PER_MED_REP_1_MPS 0x2126
+#define PER_LOW_REP_1_MPS 0x212D
+
+#define PER_HGH_REP_2_MPS 0x2236
+#define PER_MED_REP_2_MPS 0x2220
+#define PER_LOW_REP_2_MPS 0x222B
+
+#define PER_HGH_REP_4_MPS 0x2334
+#define PER_MED_REP_4_MPS 0x2322
+#define PER_LOW_REP_4_MPS 0x2329
+
+#define PER_HGH_REP_10_MPS 0x2737
+#define PER_MED_REP_10_MPS 0x2721
+#define PER_LOW_REP_10_MPS 0x272A
+
+//accelerated response time command
+#define ACC_RESPONSE_TIME 0x2B32
+
+//break commmand, stop periodic acq
+#define BREAK_CMD 0x3093
+
+//soft reset command
+#define SOFT_RST 0x30A2
+#define GENERAL_CALL_RST 0x0006
+
+//heater commands (write command)
+#define HEATER_EN 0x306D
+#define HEATER_DIS 0x3066
+
+//readout status register (write command)
+#define READ_STATUS_REG 0xF32D
+
+//status reg mask fields
+
+#define ALRT_PENDING_MASK   0x8000
+#define HEATER_STATUS_MASK  0x2000
+#define RH_ALRT_MASK        0x0800
+#define T_ALRT_MASK         0x0400
+#define SYSTEM_RST_MASK     0x0010
+#define CMS_STATUS_MASK     0x0002
+#define CHECKSUM_STS_MASK   0x0001
+
+//status bits description
+#define NO_ALRT_PENDING   0x0
+#define ALRT_PENDING      0x8000  //at least one pengind alert
+
+#define HEATER_STATUS_OFF 0x0
+#define HEATER_STATUS_ON  0x2000
+
+#define RH_NO_ALRT_TRACK  0x0
+#define RH_ALRT_TRACK     0x0800
+
+#define T_NO_ALRT_TRACK   0x0
+#define T_ALRT_TRACK      0x0400
+
+#define NO_RST_DETECTED   0x0
+#define RST_DETECTED      0x10  //reset of any kind (hard, soft, supply fail)
+
+#define LAST_CMD_SUCCESS  0x0
+#define LAST_CMD_ERR      0x2   //last command not processed (checksum error or invalid)
+
+#define CHECKSUM_OK       0x0
+#define CHECKSUM_ERR      0x1   //checksum of last write failed
+
+
+//status bits clear command
+#define STATUS_CLR 0x3041
+
+//checksum parameters
+
+#define POLYNOMIAL          0x31
+#define CRC_INITIALIZATION  0xFF
+#define FINAL_XOR           0x00
+
+#endif /* API_SHT31_SRC_API_SHT31_H_ */
