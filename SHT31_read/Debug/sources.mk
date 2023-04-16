@@ -23,6 +23,6 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
-Drivers/API_sht31/src \
+Drivers/API/src \
 Drivers/STM32G0xx_HAL_Driver/Src \
 

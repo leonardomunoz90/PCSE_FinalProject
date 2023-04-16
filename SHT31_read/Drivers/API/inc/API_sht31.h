@@ -5,6 +5,12 @@
  *      Author: leomu
  */
 
+#include "stdint.h"
+#include "stdbool.h"
+
+#define CMD_OK 0
+#define CMD_ERR -1
+
 #ifndef API_SHT31_SRC_API_SHT31_H_
 #define API_SHT31_SRC_API_SHT31_H_
 
@@ -106,5 +112,29 @@
 #define POLYNOMIAL          0x31
 #define CRC_INITIALIZATION  0xFF
 #define FINAL_XOR           0x00
+
+typedef bool bool_t;
+
+typedef struct{
+	float temperature;
+	float humidity;
+	uint16_t readCMD;
+	bool_t errState;
+}sht31_t;
+
+//Functions
+
+int8_t initNewMeasure(sht31_t * sht31Sensor);
+int8_t readSensorData(sht31_t * sht31Sensor);
+void sensorDataString(sht31_t * sht31Sensor ,uint8_t * buf);
+int8_t sendI2C_CMD (uint8_t addr,uint8_t * sendCMD,int8_t size);
+int8_t readI2C_Data (uint8_t addr,uint8_t * data,int8_t size);
+
+#define CMD_BYTES_SIZE 2
+#define DATA_BYTES_SIZE 6
+
+float tempConv (uint16_t temp);
+float humConv (uint16_t hum);
+
 
 #endif /* API_SHT31_SRC_API_SHT31_H_ */
