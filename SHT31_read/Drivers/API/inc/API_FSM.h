@@ -8,22 +8,19 @@
 #ifndef API_INC_API_FSM_H_
 #define API_INC_API_FSM_H_
 
-#include "API_delay.h"
-#include "API_sht31.h"
-
-#define FSM_MEASURE_WAIT_TIME 20
-#define FSM_SAMPLE_PERIOD 10000
-#define MSG_MAX_LENGHT 50
+#define FSM_MEASURE_WAIT_TIME 20	//sensor wait time
+#define FSM_SAMPLE_PERIOD 10000		//sensor measure every 10 seconds
+#define MSG_MAX_LENGHT 50			//Output data max length
 
 void FSM_init();
 void FSM_update();
 
 typedef enum{
-IDLE,
-NEW_MEASURE,
-MEASURING,
-DATA_READ,
-SEND_DATA
+IDLE,					//Waiting for new measure
+NEW_MEASURE,			//Sends new measure commands
+MEASURING,				//Waiting measure time
+DATA_READ,				//Sends read command to sensor
+SEND_DATA				//Sends read data to UART
 } SensorReadState_t;
 
 #endif /* API_INC_API_FSM_H_ */

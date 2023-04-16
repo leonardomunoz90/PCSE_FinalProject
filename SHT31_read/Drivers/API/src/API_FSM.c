@@ -9,55 +9,57 @@
 #include "API_sht31.h"
 #include "API_uart.h"
 #include "string.h"
+#include "API_delay.h"
 
-static SensorReadState_t SensorReadState; // Variable interna de maquina de estados
-static sht31_t sht31Sensor;
-static delay_t delaySamplePeriod;
-static delay_t delayMeasuring;
-static uint8_t buf[MSG_MAX_LENGHT];
+static SensorReadState_t SensorReadState; 	// FSM states
+static sht31_t sht31Sensor;					//sensor data variable
+static delay_t delaySamplePeriod;			//delay sample period structure
+static delay_t delayMeasuring;				//measure time delay structure
+static uint8_t buf[MSG_MAX_LENGHT];			//buffer of print messages
 
 void FSM_init() {
-	SensorReadState = IDLE;
 	delayInit(&delaySamplePeriod, FSM_SAMPLE_PERIOD);
 	delayInit(&delayMeasuring, FSM_MEASURE_WAIT_TIME);
 	sht31Sensor.errState=false;
 	sht31Sensor.humidity=0;
 	sht31Sensor.temperature=0;
 	sht31Sensor.readCMD = SS_CLOCK_STR_DIS_HGH_REP;
+	SensorReadState = IDLE;					//Initialize FMS and goes to IDLE state
 }
 
 void FSM_update() {
 	switch (SensorReadState) {
 	case IDLE:
 		if (delayRead(&delaySamplePeriod)) {
-			SensorReadState = NEW_MEASURE;
+			SensorReadState = NEW_MEASURE;	//When sample period has elapsed, initializes another
 		}
 		break;
 	case NEW_MEASURE:
-		initNewMeasure(&sht31Sensor);
-		if ( !sht31Sensor.errState) {
-			SensorReadState = MEASURING;
+		initNewMeasure(&sht31Sensor);		//sends new measure command
+		if (!sht31Sensor.errState) {
+			SensorReadState = MEASURING;	//If read command was sent correctly, waits for it to complete
 		}
-		if (sht31Sensor.errState) {
-			SensorReadState = SEND_DATA;
+		else {
+			SensorReadState = SEND_DATA; 	//If there is a error, send a error message via UART
 		}
 		break;
 	case MEASURING:
 		if (delayRead(&delayMeasuring)) {
-			SensorReadState = DATA_READ;
+			SensorReadState = DATA_READ;	//When measure is ready, goes to sensor measure
 		}
 		break;
 	case DATA_READ:
-		readSensorData(&sht31Sensor);
-		SensorReadState = SEND_DATA;
+		readSensorData(&sht31Sensor);		//stores data in sensor structure, whether is correct or not
+		SensorReadState = SEND_DATA;		//sends data state
 		break;
 	case SEND_DATA:
-		sensorDataString(&sht31Sensor,buf);
-		sendStringUart(buf,(uint8_t) strlen(buf));
-		SensorReadState = IDLE;
+		sensorDataString(&sht31Sensor,buf);	//create string with temperature and humidity
+											// creates an error message if errState is asserted
+		sendStringUart(buf,(uint8_t) strlen(buf));	//send string via UART
+		SensorReadState = IDLE;						//waits for new measure
 		break;
 	default:
-		SensorReadState = IDLE;
+		SensorReadState = IDLE;				//in case states reaches this section, goes back to IDLE state
 		break;
 	}
 }

@@ -2,7 +2,7 @@
  * port.c
  *
  *  Created on: Apr 13, 2023
- *      Author: leomu
+ *      Author: leonardo
  */
 
 #include "stm32g0xx_hal.h"

@@ -25,9 +25,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "API_FSM.h"
-#include "string.h"
-#include "stdio.h"
-#include "stdint.h"
 
 /* USER CODE END Includes */
 
@@ -69,14 +66,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	/*
-	HAL_StatusTypeDef ret;
-	uint8_t buf[20];
-	uint8_t i2cWriteCMD[2];
-	uint8_t i2cReadData[6];
-	float temp = 20;
-	float hum = 20;
-	*/
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -109,39 +99,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 		FSM_update();
-
-		/*
-		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-		HAL_Delay(1000);
-
-		i2cWriteCMD[0] = (uint8_t) ((SS_CLOCK_STR_DIS_HGH_REP & 0xFF00) >> 8);
-		i2cWriteCMD[1] = (uint8_t) (SS_CLOCK_STR_DIS_HGH_REP & 0x00FF);
-
-		ret = HAL_I2C_Master_Transmit(&hi2c1, (DEFAULT_ADDR << 1), i2cWriteCMD, 2, 100);
-
-		if (ret != HAL_OK) {
-			strcpy(buf, "Error Tx\r\n");
-			HAL_UART_Transmit(&huart2, buf, strlen(buf), 100);
-
-		} else {
-			HAL_Delay(50);
-			ret = HAL_I2C_Master_Receive(&hi2c1, (DEFAULT_ADDR << 1), i2cReadData, 6,
-					100);
-
-			if (ret != HAL_OK) {
-				strcpy(buf, "Error Rx\r\n");
-				HAL_UART_Transmit(&huart2, buf, strlen(buf), 100);
-
-			} else {
-				temp = tempConv ((((uint16_t)i2cReadData[0])<<8)|i2cReadData[1]);
-				hum = humConv ((((uint16_t)i2cReadData[3])<<8)|i2cReadData[4]);
-				sprintf(buf, "Temperatura:%.2f - Humedad:%.2f\r\n", temp, hum);
-				HAL_UART_Transmit(&huart2, buf, strlen(buf), 100);
-			}
-		}
-		*/
 	}
   /* USER CODE END 3 */
 }

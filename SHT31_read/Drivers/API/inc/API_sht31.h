@@ -2,7 +2,7 @@
  * API_sht31.h
  *
  *  Created on: Apr 13, 2023
- *      Author: leomu
+ *      Author: leonardo
  */
 
 #include "stdint.h"
@@ -22,7 +22,7 @@
 #define DEFAULT_ADDR 0x44
 #define ADDR_HIGH 0x45
 
-//commands for single shot (SS) adquisition
+//commands for single shot (SS) measurement
 
 #define SS_CLOCK_STR_EN_HGH_REP 0x2C06
 #define SS_CLOCK_STR_EN_MED_REP 0x2C0D
@@ -32,7 +32,7 @@
 #define SS_CLOCK_STR_DIS_MED_REP 0x240B
 #define SS_CLOCK_STR_DIS_LOW_REP 0x2416
 
-//commands for periodic (PER) adquisition
+//commands for periodic (PER) measurement
 
 #define PER_HGH_REP_05_MPS 0x2032
 #define PER_MED_REP_05_MPS 0x2024
@@ -57,7 +57,7 @@
 //accelerated response time command
 #define ACC_RESPONSE_TIME 0x2B32
 
-//break commmand, stop periodic acq
+//break command, stop periodic measurement
 #define BREAK_CMD 0x3093
 
 //soft reset command
@@ -83,7 +83,7 @@
 
 //status bits description
 #define NO_ALRT_PENDING   0x0
-#define ALRT_PENDING      0x8000  //at least one pengind alert
+#define ALRT_PENDING      0x8000  //at least one pending alert
 
 #define HEATER_STATUS_OFF 0x0
 #define HEATER_STATUS_ON  0x2000
@@ -116,25 +116,25 @@
 typedef bool bool_t;
 
 typedef struct{
-	float temperature;
-	float humidity;
-	uint16_t readCMD;
-	bool_t errState;
+	float temperature;	//current temperature
+	float humidity;		//current humidity
+	uint16_t readCMD;	//single shot read command
+	bool_t errState;	//asserted when there is a error in sensor communication commands
 }sht31_t;
 
 //Functions
 
-int8_t initNewMeasure(sht31_t * sht31Sensor);
-int8_t readSensorData(sht31_t * sht31Sensor);
-void sensorDataString(sht31_t * sht31Sensor ,uint8_t * buf);
-int8_t sendI2C_CMD (uint8_t addr,uint8_t * sendCMD,int8_t size);
-int8_t readI2C_Data (uint8_t addr,uint8_t * data,int8_t size);
+int8_t initNewMeasure(sht31_t * sht31Sensor);	//sends new measure command
+int8_t readSensorData(sht31_t * sht31Sensor);	//read data from sensor (temperature, humidity and CRC)
+void sensorDataString(sht31_t * sht31Sensor ,uint8_t * buf); //creates data or error string
+int8_t sendI2C_CMD (uint8_t addr,uint8_t * sendCMD,int8_t size);	//abstracts HAL I2C write
+int8_t readI2C_Data (uint8_t addr,uint8_t * data,int8_t size);		//abstracts HAL I2C read
 
-#define CMD_BYTES_SIZE 2
-#define DATA_BYTES_SIZE 6
+#define CMD_BYTES_SIZE 2	//every write command to sensor is 2 bytes long
+#define DATA_BYTES_SIZE 6	//two bytes from temperature and humidity and one byte CRC each
 
-float tempConv (uint16_t temp);
-float humConv (uint16_t hum);
+float tempConv (uint16_t temp);	//converts raw 16 bits temperature in its actual value
+float humConv (uint16_t hum);	//converts raw 16 bits temperature in its actual value
 
 
 #endif /* API_SHT31_SRC_API_SHT31_H_ */

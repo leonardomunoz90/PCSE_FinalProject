@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  000201e0  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000eea2  00000000  00000000  00020208  2**0
+ 12 .debug_info   0000ee8d  00000000  00000000  00020208  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00002670  00000000  00000000  0002f0aa  2**0
+ 13 .debug_abbrev 00002670  00000000  00000000  0002f095  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000c60  00000000  00000000  00031720  2**3
+ 14 .debug_aranges 00000c60  00000000  00000000  00031708  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000b28  00000000  00000000  00032380  2**3
+ 15 .debug_ranges 00000b28  00000000  00000000  00032368  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00017a14  00000000  00000000  00032ea8  2**0
+ 16 .debug_macro  0001784a  00000000  00000000  00032e90  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00011552  00000000  00000000  0004a8bc  2**0
+ 17 .debug_line   00011313  00000000  00000000  0004a6da  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008d449  00000000  00000000  0005be0e  2**0
+ 18 .debug_str    0008d449  00000000  00000000  0005b9ed  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000e9257  2**0
+ 19 .comment      00000050  00000000  00000000  000e8e36  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00004034  00000000  00000000  000e92a8  2**2
+ 20 .debug_frame  00004034  00000000  00000000  000e8e88  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -6117,11 +6117,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
   FSM_init();
  8002f98:	f000 f9f6 	bl	8003388 <FSM_init>
+  /* USER CODE BEGIN WHILE */
 	while (1) {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 		FSM_update();
  8002f9c:	f000 fa1e 	bl	80033dc <FSM_update>
  8002fa0:	e7fc      	b.n	8002f9c <main+0x1c>
