@@ -1,5 +1,5 @@
 /*
- * API_debounce.c
+ * API_FSM.c
  *
  *  Created on: Mar 25, 2023
  *      Author: leonardo
@@ -7,7 +7,6 @@
 
 #include "API_FSM.h"
 #include "API_sht31.h"
-#include "API_uart.h"
 #include "string.h"
 #include "API_delay.h"
 

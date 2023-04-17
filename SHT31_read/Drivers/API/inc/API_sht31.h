@@ -124,14 +124,25 @@ typedef struct{
 
 //Functions
 
-int8_t initNewMeasure(sht31_t * sht31Sensor);	//sends new measure command
-int8_t readSensorData(sht31_t * sht31Sensor);	//read data from sensor (temperature, humidity and CRC)
+void initNewMeasure(sht31_t * sht31Sensor);	//sends new measure command
+void readSensorData(sht31_t * sht31Sensor);	//read data from sensor (temperature, humidity and CRC)
 void sensorDataString(sht31_t * sht31Sensor ,uint8_t * buf); //creates data or error string
-int8_t sendI2C_CMD (uint8_t addr,uint8_t * sendCMD,int8_t size);	//abstracts HAL I2C write
-int8_t readI2C_Data (uint8_t addr,uint8_t * data,int8_t size);		//abstracts HAL I2C read
+uint8_t sendI2C_CMD (uint8_t addr,uint8_t * sendCMD,int8_t size);	//abstracts HAL I2C write
+uint8_t readI2C_Data (uint8_t addr,uint8_t * data,int8_t size);		//abstracts HAL I2C read
+void sendStringUart(uint8_t * buf, uint8_t size);
 
 #define CMD_BYTES_SIZE 2	//every write command to sensor is 2 bytes long
 #define DATA_BYTES_SIZE 6	//two bytes from temperature and humidity and one byte CRC each
+
+//data response position
+
+#define MSB_TEMPERATURE 0
+#define LSB_TEMPERATURE 1
+#define TEMPERATURE_CRC	2
+#define MSB_HUMIDITY 	3
+#define LSB_HUMIDITY 	4
+#define HUMIDITY_CRC	5
+
 
 float tempConv (uint16_t temp);	//converts raw 16 bits temperature in its actual value
 float humConv (uint16_t hum);	//converts raw 16 bits temperature in its actual value

@@ -8,21 +8,18 @@ C_SRCS += \
 ../Drivers/API/src/API_FSM.c \
 ../Drivers/API/src/API_delay.c \
 ../Drivers/API/src/API_sht31.c \
-../Drivers/API/src/API_uart.c \
 ../Drivers/API/src/port.c 
 
 OBJS += \
 ./Drivers/API/src/API_FSM.o \
 ./Drivers/API/src/API_delay.o \
 ./Drivers/API/src/API_sht31.o \
-./Drivers/API/src/API_uart.o \
 ./Drivers/API/src/port.o 
 
 C_DEPS += \
 ./Drivers/API/src/API_FSM.d \
 ./Drivers/API/src/API_delay.d \
 ./Drivers/API/src/API_sht31.d \
-./Drivers/API/src/API_uart.d \
 ./Drivers/API/src/port.d 
 
 
@@ -33,7 +30,7 @@ Drivers/API/src/%.o Drivers/API/src/%.su: ../Drivers/API/src/%.c Drivers/API/src
 clean: clean-Drivers-2f-API-2f-src
 
 clean-Drivers-2f-API-2f-src:
-	-$(RM) ./Drivers/API/src/API_FSM.d ./Drivers/API/src/API_FSM.o ./Drivers/API/src/API_FSM.su ./Drivers/API/src/API_delay.d ./Drivers/API/src/API_delay.o ./Drivers/API/src/API_delay.su ./Drivers/API/src/API_sht31.d ./Drivers/API/src/API_sht31.o ./Drivers/API/src/API_sht31.su ./Drivers/API/src/API_uart.d ./Drivers/API/src/API_uart.o ./Drivers/API/src/API_uart.su ./Drivers/API/src/port.d ./Drivers/API/src/port.o ./Drivers/API/src/port.su
+	-$(RM) ./Drivers/API/src/API_FSM.d ./Drivers/API/src/API_FSM.o ./Drivers/API/src/API_FSM.su ./Drivers/API/src/API_delay.d ./Drivers/API/src/API_delay.o ./Drivers/API/src/API_delay.su ./Drivers/API/src/API_sht31.d ./Drivers/API/src/API_sht31.o ./Drivers/API/src/API_sht31.su ./Drivers/API/src/port.d ./Drivers/API/src/port.o ./Drivers/API/src/port.su
 
 .PHONY: clean-Drivers-2f-API-2f-src
 

@@ -11,7 +11,6 @@
 "./Drivers/API/src/API_FSM.o"
 "./Drivers/API/src/API_delay.o"
 "./Drivers/API/src/API_sht31.o"
-"./Drivers/API/src/API_uart.o"
 "./Drivers/API/src/port.o"
 "./Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal.o"
 "./Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_cortex.o"
