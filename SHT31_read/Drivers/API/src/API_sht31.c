@@ -26,7 +26,7 @@ void readSensorData(sht31_t *sht31Sensor) {
 		sht31Sensor->errState = false;
 
 		//Merge return bytes in a single uint16_t variable and converts it to its real value
-		// the idea is convert the raw value in a number readable by the user
+		//The idea is convert the raw value in a number readable by the user
 		sht31Sensor->temperature = tempConv(
 				(((uint16_t) i2cReadData[MSB_TEMPERATURE]) << 8)
 						| i2cReadData[LSB_TEMPERATURE]);
@@ -56,31 +56,5 @@ static float tempConv(uint16_t temp) {
 static float humConv(uint16_t hum) {
 	float humidity = (float) (hum);
 	return (100 * humidity / 65537);
-}
-
-
-// CRC-8 formula from page 14 of SHT data sheet
-uint8_t crc8(const uint8_t *data, int len)
-{
-	uint8_t crc = CRC_INITIALIZATION;
-
-	for ( int j = len; j; --j )
-	{
-		crc ^= *data++;
-
-		for ( int i = 8; i; --i )
-		{
-			crc = ( crc & 0x80 )
-					? (crc << 1) ^ POLYNOMIAL
-					: (crc << 1);
-		}
-	}
-
-	return crc;
-}
-
-bool_t checkCrc(const uint8_t *data, uint8_t crc)
-{
-	return crc8(data, 2) == crc;
 }
 
