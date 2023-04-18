@@ -7,6 +7,9 @@
 
 #include "API_sht31.h"
 
+static float tempConv (uint16_t temp);	//converts raw 16 bits temperature in its actual value
+static float humConv (uint16_t hum);	//converts raw 16 bits temperature in its actual value
+
 void initNewMeasure(sht31_t *sht31Sensor) {
 	uint8_t i2cWriteCMD[CMD_BYTES_SIZE];
 	i2cWriteCMD[0] = (uint8_t) ((sht31Sensor->readCMD & 0xFF00) >> 8);	//first byte command
@@ -44,12 +47,12 @@ void sensorDataString(sht31_t *sht31Sensor, uint8_t *buf) {
 }
 
 //the following formulas are provided in sensor's data sheet
-float tempConv(uint16_t temp) {
+static float tempConv(uint16_t temp) {
 	float temperature = ((float) (temp)) / 65537;
 	return (-45 + (temperature * 175));
 }
 
-float humConv(uint16_t hum) {
+static float humConv(uint16_t hum) {
 	float humidity = (float) (hum);
 	return (100 * humidity / 65537);
 }

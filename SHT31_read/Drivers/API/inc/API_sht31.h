@@ -144,8 +144,4 @@ void sendStringUart(uint8_t * buf, uint8_t size);
 #define HUMIDITY_CRC	5
 
 
-float tempConv (uint16_t temp);	//converts raw 16 bits temperature in its actual value
-float humConv (uint16_t hum);	//converts raw 16 bits temperature in its actual value
-
-
 #endif /* API_SHT31_SRC_API_SHT31_H_ */
