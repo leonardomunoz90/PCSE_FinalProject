@@ -25,7 +25,8 @@ void readSensorData(sht31_t *sht31Sensor) {
 	if (!readI2C_Data((DEFAULT_ADDR << 1), i2cReadData, DATA_BYTES_SIZE)) {
 		sht31Sensor->errState = false;
 
-		//Merge return bytes in a single uint16_t variable and converts it to its value
+		//Merge return bytes in a single uint16_t variable and converts it to its real value
+		// the idea is convert the raw value in a number readable by the user
 		sht31Sensor->temperature = tempConv(
 				(((uint16_t) i2cReadData[MSB_TEMPERATURE]) << 8)
 						| i2cReadData[LSB_TEMPERATURE]);
