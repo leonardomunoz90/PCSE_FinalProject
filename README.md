@@ -13,4 +13,4 @@ Los módulos de software utilizados son:
 
 Documentos de refencia:
 - Hoja de datos del sensor : https://sensirion.com/media/documents/213E6A3B/63A5A569/Datasheet_SHT3x_DIS.pdf
-- Hoja de datos de 
+- Hoja de datos del microcontrolador: https://www.st.com/resource/en/datasheet/stm32g031j6.pdf
